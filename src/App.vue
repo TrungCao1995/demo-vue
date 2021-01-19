@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <app-header></app-header>
+    <router-view></router-view>
     <div class="row">
       <div class="col-md-12">
-        <router-view></router-view>
+        
       </div>
     </div>
   </div>

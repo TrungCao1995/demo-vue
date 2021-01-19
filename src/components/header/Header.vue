@@ -69,7 +69,7 @@
 
             &:hover,
             &:active,
-            .router-link-active {
+            &.router-link-active {
                 color: #fa923f;
             }
         }
