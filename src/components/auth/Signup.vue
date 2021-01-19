@@ -96,7 +96,6 @@
 </template>
 
 <script>
-import axios from "../../axios-auth";
 export default {
   data() {
     return {
@@ -114,7 +113,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      const user = {
+      const userData = {
         fullName: this.fullName,
         email: this.email,
         password: this.password,
@@ -122,25 +121,7 @@ export default {
         //birthday:
         terms: this.terms
       };
-      axios
-        .post(
-          "accounts:signUp?key=AIzaSyAqhAB0qN2fRaDa_ublVua4tEvZf7dNTQk",
-          {
-            email: user.email,
-            password: user.password,
-            returnSecureToken: true
-          }
-        )
-        .then(res => {
-          console.log("sign up susscess", res)
-          if (confirm("Sign in success. Login now!")) {
-            this.$router.push("/signin")
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          alert("Sign up fail!")
-        });
+      this.$store.dispatch("signup", userData)
     }
   }
 };

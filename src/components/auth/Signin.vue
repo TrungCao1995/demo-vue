@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import axios from '../../axios-auth'
 export default {
   data() {
     return {
@@ -41,21 +40,9 @@ export default {
   },
   methods: {
     onSignin() {
-      axios.post(
-        'accounts:signInWithPassword?key=AIzaSyAqhAB0qN2fRaDa_ublVua4tEvZf7dNTQk',
-        {
-          email: this.user.email,
-          password: this.user.password,
-          returnSecureToken: true
-        }
-      )
-      .then(res => {
-        console.log("sign in success: ", res)
-        alert("Sign in success")
-      })
-      .catch(error => {
-        console.log("sign in error: ", error)
-        alert("Sign in fail")
+      this.$store.dispatch("signin", {
+        email: this.user.email,
+        password: this.user.password
       })
     }
   }

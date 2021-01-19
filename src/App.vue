@@ -14,6 +14,12 @@
   import Header from "./components/header/Header";
 
   export default {
+    created(){
+      this.$store.dispatch('autoSignin')
+      if (!this.$store.state.idToken) {
+        this.$router.push('/signin')
+      }
+    },
     components: {
       appHeader: Header
     }

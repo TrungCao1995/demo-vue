@@ -1,38 +1,32 @@
 <template>
-  <div>
-    <p>User info:</p>
-    <p>Name: {{user.fullName}}</p>
-    <p>Email: {{user.email}}</p>
+  <div class="greeting text-center">
+      <h1 v-if="userName">{{userName | capitalize}}</h1>
+      <h2>Welcome to Vue Demo App</h2>
+      
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-    data() {
-        return {
-            user: {
-                fullName: "",
-                email: ""
-            }
+    filters: {
+        capitalize(userName) {
+            return userName.charAt(0).toUpperCase() + userName.slice(1)
+        }
+    },
+    computed: {
+        userName() {
+            return !this.$store.getters.userDetail ? false : this.$store.getters.userDetail.fullName
         }
 
     },
     created() {
-        axios
-            .get("/user.json")
-            .then(res => {
-                const data = res.data
-                const users = []
-                for (let key in data) {
-                    users.push(data[key])
-                }
-                if (users.length > 0) {
-                    this.user.fullName = users[0].fullName
-                    this.user.email = users[0].email
-                }
-            })
-            .catch(error => console.log(error))
+        this.$store.dispatch('getUserLoginInfo')
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    .greeting {
+        margin-top: 20px;
+    }
+</style>

@@ -5,13 +5,13 @@
       </div>
       <nav>
           <ul>
-              <li>
+              <li v-if="!isAuth">
                   <router-link to="/signup">Sign Up</router-link>
               </li>
-              <li>
+              <li v-if="!isAuth">
                   <router-link to="/signin">Sign In</router-link>
               </li>
-              <li>
+              <li v-if="isAuth">
                   <button @click="onSignout" class="signout">Sign Out</button>
               </li>
           </ul>
@@ -23,7 +23,12 @@
     export default {
         methods: {
             onSignout() {
-
+                this.$store.dispatch('signout')
+            }
+        },
+        computed: {
+            isAuth() {
+                return this.$store.getters.isAuthenticated
             }
         }
     }
